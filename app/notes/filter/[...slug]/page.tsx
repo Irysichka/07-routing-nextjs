@@ -15,7 +15,7 @@ export default async function App({ params }: Props) {
   const { slug } = await params;
     const tag = slug[0] === "All" ? undefined : slug[0];
   await queryClient.prefetchQuery({
-    queryKey: ["notes"],
+    queryKey: ["notes", tag],
     queryFn: () => fetchNotes(1, 8, "", tag),
   });
 
