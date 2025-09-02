@@ -1,5 +1,3 @@
-"use client"
-
 import css from "./NoteList.module.css";
 import type { Note, NoteId } from "../../types/note";
 import { useMutation, useQueryClient } from "@tanstack/react-query";

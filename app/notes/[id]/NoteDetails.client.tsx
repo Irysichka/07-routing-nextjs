@@ -2,8 +2,12 @@
 import css from "@/app/notes/[id]/NoteDetails.module.css";
 import { useQuery } from "@tanstack/react-query";
 import { fetchNoteById } from "@/lib/api";
+import { useRouter } from "next/router";
+import { useParams } from "next/navigation";
 
-export default function NoteDetailsClient({ id }: { id: string }) {
+export default function NoteDetailsClient() {
+ const { id } = useParams<{ id: string }>();
+ 
   const {
     data: note,
     isLoading,
@@ -14,7 +18,8 @@ export default function NoteDetailsClient({ id }: { id: string }) {
     enabled: !!id,
     refetchOnMount: false,
   });
-
+  const router = useRouter();
+  
   if (isLoading) return <p>Loading, please wait...</p>;
   if (error) return <p>Something went wrong.</p>;
   if (!note) return <p>Note not found.</p>;
@@ -32,6 +37,9 @@ export default function NoteDetailsClient({ id }: { id: string }) {
             : `Updated at: ${note.updatedAt}`}
         </p>
       </div>
+      <button className={css.backBtn} onClick={() => router.back()}>
+        Back
+      </button>
     </div>
   );
 }
